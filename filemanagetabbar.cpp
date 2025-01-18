@@ -35,7 +35,7 @@ void FileManageTabBar::addFile(QString filePath)
 
     QObject::connect(editor, &CodeEditor::textChanged, this, [this, editor](){
         // If current docment is saved.
-        if(editor->getMaybeSave() == true)
+        if(editor->getMaybeSave())
         {
             editor->updateMaybeSave();
             int currentTabIndex = this->currentIndex();

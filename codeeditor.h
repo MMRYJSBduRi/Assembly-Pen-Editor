@@ -3,14 +3,14 @@
 
 #include "common.h"
 #include "highlighter.h"
+#include "filemanage.h"
 
 #include <QObject>
 #include <QWidget>
 #include <QPlainTextEdit>
 #include <QFontMetrics>
-#include <QTextOption>
 #include <QFont>
-#include <QWheelEvent>
+#include <QTextOption>
 #include <QTextBlock>
 #include <QPainter>
 
@@ -29,6 +29,8 @@ public:
 
     bool getMaybeSave();
     void updateMaybeSave();
+
+    void saveFileText(QString filePath);
 
     void setTabWidth(int unitWidth);
 
@@ -54,9 +56,15 @@ private:
         DEFAULT_ZOOM = 100,              // 100%
     };
 
+    enum SavedStatus
+    {
+        SAVED = true,
+        NO_SAVED = false
+    };
+
     csize size;
-    quint8 zoom;    // For example, when zoom=65, it represents 65%
-    bool maybeSave = true;
+    quint8 zoom;             // For example, when zoom=65, it represents 65%
+    bool maybeSave = SAVED;  // True is saved, False is not saved.
 
     QFont font;
     QWidget* lineNumberArea;

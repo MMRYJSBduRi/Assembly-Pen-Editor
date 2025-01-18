@@ -5,11 +5,16 @@
 #include "filemanagetabbar.h"
 
 #include <QMainWindow>
+#include <QSettings>
 #include <QMenuBar>
 #include <QMenu>
 #include <QAction>
 #include <QFileDialog>
-#include <QEvent>
+#include <QInputDialog>
+#include <QMessageBox>
+#include <QProcess>
+#include <QRegularExpression>
+#include <QApplication>
 
 class MainWindow : public QMainWindow
 {
@@ -28,15 +33,20 @@ protected:
     void saveAsFile();
     void closeFile();
 
+    void buildProgram();
+    void runProgram();
+
+    void sdkSettingsUI();
+    void aboutSoftware();
+
     // Sorry, when I try to use the layout manager, my program will have various bugs.
     void resizeEvent(QResizeEvent* event) override;
 
 private:
     FileManageTabBar* mainTabBar;
-
     QMenuBar* mainMenuBar;
+
     QMenu* fileMenu;
-    QMenu* editMenu;
     QMenu* buildMenu;
     QMenu* settingsMenu;
     QMenu* helpMenu;
@@ -46,6 +56,12 @@ private:
     QAction* saveAction;
     QAction* saveAsAction;
     QAction* closeAction;
+
+    QAction* buildAction;
+    QAction* runAction;
+
+    // QAction* editorSettingsAction;
+    QAction* sdkSettingsAction;
 };
 
 #endif // MAINWINDOW_H

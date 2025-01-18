@@ -69,6 +69,17 @@ void CodeEditor::updateMaybeSave()
     this->maybeSave = !this->maybeSave;
 }
 
+void CodeEditor::saveFileText(QString filePath)
+{
+    if (!this->maybeSave)
+    {
+        FileManage* manager = new FileManage(filePath);
+        manager->writeText(this->toPlainText());
+
+        this->updateMaybeSave();
+    }
+}
+
 void CodeEditor::setTabWidth(int unitWidth)
 {
     QFontMetrics fontMetrics(this->font);
@@ -124,6 +135,14 @@ void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
     }
 }
 
+void CodeEditor::resizeEvent(QResizeEvent *event)
+{
+    QRect cr = contentsRect();
+    lineNumberArea->setGeometry(QRect(cr.left(), cr.top(), lineNumberAreaWidth(), cr.height()));
+
+    QPlainTextEdit::resizeEvent(event);
+}
+
 void CodeEditor::wheelEvent(QWheelEvent *event)
 {
     // If user click control key and scroll wheel.
@@ -139,14 +158,6 @@ void CodeEditor::wheelEvent(QWheelEvent *event)
         // Use member functions of the base class for processing other event.
         QPlainTextEdit::wheelEvent(event);
     }
-}
-
-void CodeEditor::resizeEvent(QResizeEvent *event)
-{
-    QRect cr = contentsRect();
-    lineNumberArea->setGeometry(QRect(cr.left(), cr.top(), lineNumberAreaWidth(), cr.height()));
-
-    QPlainTextEdit::resizeEvent(event);
 }
 
 void CodeEditor::zoomAdjustment(int delta, Qt::Orientation orientation)

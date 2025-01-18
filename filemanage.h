@@ -1,12 +1,12 @@
 #ifndef FILEMANAGE_H
 #define FILEMANAGE_H
 
+#include "common.h"
+
+#include <QObject>
 #include <QFile>
 #include <QTextStream>
 #include <QFileInfo>
-#include <QObject>
-
-#include <QDebug>
 
 class FileManage : public QFile
 {

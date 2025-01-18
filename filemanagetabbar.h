@@ -7,7 +7,6 @@
 #include <QObject>
 #include <QTabWidget>
 #include <QTabBar>
-#include <QResizeEvent>
 #include <QStackedWidget>
 #include <QVector>
 
